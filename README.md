@@ -11,8 +11,8 @@ You can check out my blogpost on the making of the driver:
 
 If you want, you can just go ahead and download the binaries from my blog or directly from these links:
 
-* [Driver package](https://dotnetfalcondrivers.blob.core.windows.net/drivers/AzureDocumentDbDriver.lpx)
-* [Static driver helper class library](https://dotnetfalcondrivers.blob.core.windows.net/drivers/ContextLibrary.dll)
+* [Driver package](https://dotnetfalconcontent.blob.core.windows.net/linqpad-documentdb-now-cosmosdb-driver/AzureDocumentDbDriver.lpx)
+* [Static driver helper class library](https://dotnetfalconcontent.blob.core.windows.net/linqpad-documentdb-now-cosmosdb-driver/ContextLibrary.dll)
 
 
 ## Build and run
