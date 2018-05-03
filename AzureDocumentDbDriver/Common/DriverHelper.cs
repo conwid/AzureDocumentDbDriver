@@ -6,24 +6,30 @@ using System.Threading.Tasks;
 using LINQPad.Extensibility.DataContext;
 using System.Dynamic;
 using System.Data.Common;
-using ContextLibrary.DocumentDbProvider;
 using System.Data;
 
 namespace AzureDocumentDbDriver.Common
 {
     public static class DriverHelper
     {
-        public static string AuthorName { get { return "Akos Nagy"; } }
+        public static string AuthorName => "Akos Nagy";
 
-        public static IEnumerable<string> GetAssembliesToAdd()
-        {
-            return new List<string> { "Microsoft.Azure.Documents.Client.dll", "Newtonsoft.Json.dll", "ContextLibrary.dll" };
-        }
+        public static IEnumerable<string> GetAssembliesToAdd() =>
+            new[]
+            {
+                "Microsoft.Azure.Documents.Client.dll",
+                "Newtonsoft.Json.dll",                
+            };
 
-        public static IEnumerable<string> GetNamespaceToAdd()
-        {
-            return new List<string> { "Microsoft.Azure.Documents.Client", "ContextLibrary", "System.Dynamic", "System.Collections.Generic" };
-        }
+
+        public static IEnumerable<string> GetNamespaceToAdd() =>
+            new[]
+            {
+                 "Microsoft.Azure.Documents.Client",
+                 "System.Dynamic",
+                 "System.Collections.Generic"
+            };
+        
 
         public static string GetConnectionDescription(IConnectionInfo cxInfo)
         {
@@ -34,7 +40,7 @@ namespace AzureDocumentDbDriver.Common
 
         public static ParameterDescriptor[] GetContextConstructorParameters(IConnectionInfo cxInfo)
         {
-            var stringTypeName = typeof(System.String).FullName;
+            var stringTypeName = typeof(string).FullName;
             return new[] {
                 new ParameterDescriptor("uri", stringTypeName),
                 new ParameterDescriptor("authKey", stringTypeName),
@@ -69,6 +75,6 @@ namespace AzureDocumentDbDriver.Common
             var p1 = new Properties(c1);
             var p2 = new Properties(c2);
             return p1.AccountKey == p2.AccountKey;
-        }        
+        }
     }
 }

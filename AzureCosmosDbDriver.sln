@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2037
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureCosmosDbDriver", "AzureDocumentDbDriver\AzureCosmosDbDriver.csproj", "{634AB57F-E052-459E-BC22-24933427D302}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Submodules", "Submodules", "{644E6E41-1762-4335-8418-11363D883A33}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CosmosDbAdoNetProvider", "Submodules\CosmosDbAdoNetProvider\CosmosDbAdoNetProvider\CosmosDbAdoNetProvider.csproj", "{4E685226-1E96-4E98-82EC-A70F1041C920}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CosmosDbContext", "Submodules\CosmosDbContext\CosmosDbContext\CosmosDbContext.csproj", "{53C30B69-E08D-4A09-B996-21D3ED30E37D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{634AB57F-E052-459E-BC22-24933427D302}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{634AB57F-E052-459E-BC22-24933427D302}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{634AB57F-E052-459E-BC22-24933427D302}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{634AB57F-E052-459E-BC22-24933427D302}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E685226-1E96-4E98-82EC-A70F1041C920}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E685226-1E96-4E98-82EC-A70F1041C920}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E685226-1E96-4E98-82EC-A70F1041C920}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E685226-1E96-4E98-82EC-A70F1041C920}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53C30B69-E08D-4A09-B996-21D3ED30E37D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53C30B69-E08D-4A09-B996-21D3ED30E37D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53C30B69-E08D-4A09-B996-21D3ED30E37D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53C30B69-E08D-4A09-B996-21D3ED30E37D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4E685226-1E96-4E98-82EC-A70F1041C920} = {644E6E41-1762-4335-8418-11363D883A33}
+		{53C30B69-E08D-4A09-B996-21D3ED30E37D} = {644E6E41-1762-4335-8418-11363D883A33}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {68C0AE25-FD57-464A-A5B7-46C740DA53CD}
+	EndGlobalSection
+EndGlobal

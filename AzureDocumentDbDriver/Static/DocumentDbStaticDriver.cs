@@ -5,7 +5,6 @@ using System.Linq;
 using System.Reflection;
 using LINQPad.Extensibility.DataContext;
 using System.Data.Common;
-using ContextLibrary.DocumentDbProvider;
 using AzureDocumentDbDriver.Common;
 
 namespace AzureDocumentDbDriver.Static
@@ -13,7 +12,7 @@ namespace AzureDocumentDbDriver.Static
 
     public class Driver : StaticDataContextDriver
     {
-        public override string Name { get { return "DocumentDb Static Driver"; } }
+        public override string Name { get { return "CosmosDb Static Driver"; } }
 
         public override string Author { get { return DriverHelper.AuthorName; } }
 

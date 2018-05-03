@@ -4,7 +4,7 @@ using LINQPad.Extensibility.DataContext;
 
 namespace AzureDocumentDbDriver.Common
 {
-  
+
     public class Properties
     {
         readonly IConnectionInfo _cxInfo;
@@ -16,33 +16,30 @@ namespace AzureDocumentDbDriver.Common
             _driverData = cxInfo.DriverData;
         }
 
-        public ICustomTypeInfo CustomTypeInfo
-        {
-            get { return _cxInfo.CustomTypeInfo; }
-        }
+        public ICustomTypeInfo CustomTypeInfo => _cxInfo.CustomTypeInfo;
 
         public bool Persist
         {
-            get { return _cxInfo.Persist; }
-            set { _cxInfo.Persist = value; }
+            get => _cxInfo.Persist;
+            set => _cxInfo.Persist = value;
         }
 
         public string Uri
         {
-            get { return (string)_driverData.Element("Uri") ?? ""; }
-            set { _driverData.SetElementValue("Uri", value); }
+            get => (string)_driverData.Element("Uri") ?? string.Empty;
+            set => _driverData.SetElementValue("Uri", value);
         }
 
         public string AccountKey
         {
-            get { return (string)_driverData.Element("AccountKey") ?? ""; }
-            set { _driverData.SetElementValue("AccountKey", value); }
+            get => (string)_driverData.Element("AccountKey") ?? string.Empty;
+            set => _driverData.SetElementValue("AccountKey", value);
         }
 
         public string Database
         {
-            get { return (string)_driverData.Element("Database") ?? ""; }
-            set { _driverData.SetElementValue("Database", value); }
+            get => (string)_driverData.Element("Database") ?? string.Empty;
+            set => _driverData.SetElementValue("Database", value);
         }
     }
 

@@ -14,7 +14,7 @@ namespace AzureDocumentDbDriver.Dynamic
 {
     public class Driver : DynamicDataContextDriver
     {
-        public override string Name { get { return "DocumentDb Dynamic Driver"; } }
+        public override string Name { get { return "CosmosDb Dynamic Driver"; } }
 
         public override string Author { get { return DriverHelper.AuthorName; } }
 

@@ -5,7 +5,7 @@ $targetFolder=[System.IO.Path]::Combine($sourceFolder,"ReleasePackage")
 $xmlFile=[System.IO.Path]::Combine($sourceFolder,"header.xml");
 $pngFiles=[System.IO.Path]::Combine($sourceFolder,"*.png");
 $dllFiles=[System.IO.Path]::Combine($sourceFolder,"*.dll")
-$zipFile=[System.IO.Path]::Combine($sourceFolder,"AzureDocumentDbDriver.lpx")
+$zipFile=[System.IO.Path]::Combine($sourceFolder,"AzureCosmosDbDriver.lpx")
 
 If (Test-Path $targetFolder){
 	Remove-Item $targetFolder -Recurse -Force
