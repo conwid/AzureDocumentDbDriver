@@ -46,8 +46,9 @@
     <Reference Include="Microsoft.Azure.Documents.Client, Version=1.22.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Azure.DocumentDB.1.22.0\lib\net45\Microsoft.Azure.Documents.Client.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -106,19 +107,19 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Submodules\CosmosDbAdoNetProvider\CosmosDbAdoNetProvider\CosmosDbAdoNetProvider.csproj">
-      <Project>{4e685226-1e96-4e98-82ec-a70f1041c920}</Project>
+    <ProjectReference Include="..\CosmosDbAdoNetProvider\CosmosDbAdoNetProvider.csproj">
+      <Project>{4E685226-1E96-4E98-82EC-A70F1041C920}</Project>
       <Name>CosmosDbAdoNetProvider</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Submodules\CosmosDbContext\CosmosDbContext\CosmosDbContext.csproj">
-      <Project>{53c30b69-e08d-4a09-b996-21d3ed30e37d}</Project>
+    <ProjectReference Include="..\CosmosDbContext\CosmosDbContext.csproj">
+      <Project>{53C30B69-E08D-4A09-B996-21D3ED30E37D}</Project>
       <Name>CosmosDbContext</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>if $(ConfigurationName) == Debug DevDeploy.bat
-if $(ConfigurationName) == Release powershell.exe -file "ReleaseDeploy.ps1" -folder "$(TargetDir)"</PostBuildEvent>
+if $(ConfigurationName) == Release powershell.exe -file "ReleaseDeploy.ps1" -folder "$(TargetDir)</PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\packages\Microsoft.Azure.DocumentDB.1.22.0\build\Microsoft.Azure.DocumentDB.targets" Condition="Exists('..\packages\Microsoft.Azure.DocumentDB.1.22.0\build\Microsoft.Azure.DocumentDB.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

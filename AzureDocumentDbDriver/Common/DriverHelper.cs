@@ -7,8 +7,9 @@ using LINQPad.Extensibility.DataContext;
 using System.Dynamic;
 using System.Data.Common;
 using System.Data;
+using CosmosDbAdoNetProvider;
 
-namespace AzureDocumentDbDriver.Common
+namespace AzureCosmosDbDriver.Common
 {
     public static class DriverHelper
     {
@@ -18,7 +19,9 @@ namespace AzureDocumentDbDriver.Common
             new[]
             {
                 "Microsoft.Azure.Documents.Client.dll",
-                "Newtonsoft.Json.dll",                
+                "Newtonsoft.Json.dll",
+                "CosmosDbAdoNetProvider.dll",
+                "CosmosDbContext.dll"
             };
 
 
@@ -27,7 +30,9 @@ namespace AzureDocumentDbDriver.Common
             {
                  "Microsoft.Azure.Documents.Client",
                  "System.Dynamic",
-                 "System.Collections.Generic"
+                 "System.Collections.Generic",
+                 "CosmosDbContext",
+                 "CosmosDbContext.Collection"
             };
         
 
@@ -51,17 +56,17 @@ namespace AzureDocumentDbDriver.Common
         internal static IDbConnection GetIDbConnection(IConnectionInfo cxInfo)
         {
             Properties props = new Properties(cxInfo);
-            return new DocumentDbConnection(props.Uri, props.AccountKey, props.Database);
+            return new CosmosDbSqlConnection(props.Uri, props.AccountKey, props.Database);
         }
 
         public static DbProviderFactory GetProviderFactory(IConnectionInfo cxInfo)
         {
-            if (cxInfo.DatabaseInfo.Provider != DocumentDbProviderFactory.ProviderName)
+            if (cxInfo.DatabaseInfo.Provider != CosmosDbSqlProviderFactory.ProviderName)
             {
-                throw new NotSupportedException($"Only {DocumentDbProviderFactory.ProviderName} is supported; requested {cxInfo.DatabaseInfo.Provider}");
+                throw new NotSupportedException($"Only {CosmosDbSqlProviderFactory.ProviderName} is supported; requested {cxInfo.DatabaseInfo.Provider}");
             }
             Properties props = new Properties(cxInfo);
-            return new DocumentDbProviderFactory(props.Uri, props.AccountKey, props.Database);
+            return new CosmosDbSqlProviderFactory(props.Uri, props.AccountKey, props.Database);
         }
 
         public static object[] GetContextConstructorArguments(IConnectionInfo cxInfo)

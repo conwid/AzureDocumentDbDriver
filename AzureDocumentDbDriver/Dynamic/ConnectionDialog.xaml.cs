@@ -12,10 +12,10 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using LINQPad.Extensibility.DataContext;
-using ContextLibrary.DocumentDbProvider;
-using AzureDocumentDbDriver.Common;
+using AzureCosmosDbDriver.Common;
+using CosmosDbAdoNetProvider;
 
-namespace AzureDocumentDbDriver.Dynamic
+namespace AzureCosmosDbDriver.Dynamic
 {
 	/// <summary>
 	/// Interaction logic for ConnectionDialog.xaml
@@ -26,7 +26,7 @@ namespace AzureDocumentDbDriver.Dynamic
 
 		public ConnectionDialog(IConnectionInfo cxInfo)
 		{
-            cxInfo.DatabaseInfo.Provider = DocumentDbProviderFactory.ProviderName;                   
+            cxInfo.DatabaseInfo.Provider = CosmosDbSqlProviderFactory.ProviderName;                   
 			DataContext = properties = new Properties (cxInfo);
 			Background = SystemColors.ControlBrush;
 			InitializeComponent ();            

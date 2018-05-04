@@ -1,0 +1,6 @@
+[submodule "CosmosDbContext"]
+	path = CosmosDbContext
+	url = https://github.com/conwid/CosmosDbContext.git
+[submodule "CosmosDbAdoNetProvider"]
+	path = CosmosDbAdoNetProvider
+	url = https://github.com/conwid/CosmosDbAdoNetProvider.git

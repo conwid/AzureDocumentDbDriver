@@ -13,11 +13,11 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using LINQPad.Extensibility.DataContext;
 using System.IO;
-using ContextLibrary;
-using ContextLibrary.DocumentDbProvider;
-using AzureDocumentDbDriver.Common;
+using AzureCosmosDbDriver.Common;
+using CosmosDbContext;
+using CosmosDbAdoNetProvider;
 
-namespace AzureDocumentDbDriver.Static
+namespace AzureCosmosDbDriver.Static
 {
     /// <summary>
     /// Interaction logic for ConnectionDialog.xaml
@@ -30,7 +30,7 @@ namespace AzureDocumentDbDriver.Static
         {
             this.cxInfo = cxInfo;
             DataContext = new Properties(cxInfo);
-            cxInfo.DatabaseInfo.Provider = DocumentDbProviderFactory.ProviderName;
+            cxInfo.DatabaseInfo.Provider = CosmosDbSqlProviderFactory.ProviderName;
             InitializeComponent();
         }
 
@@ -69,7 +69,7 @@ namespace AzureDocumentDbDriver.Static
             string[] customTypes;
             try
             {
-                customTypes = cxInfo.CustomTypeInfo.GetCustomTypesInAssembly(typeof(BaseDocumentDbContext).FullName);
+                customTypes = cxInfo.CustomTypeInfo.GetCustomTypesInAssembly(typeof(CosmosDbContext.CosmosDbContext).FullName);
             }
             catch (Exception ex)
             {
@@ -78,7 +78,7 @@ namespace AzureDocumentDbDriver.Static
             }
             if (customTypes.Length == 0)
             {
-                MessageBox.Show($"There are no public types in that assembly based on {typeof(BaseDocumentDbContext).FullName}.");
+                MessageBox.Show($"There are no public types in that assembly based on {typeof(CosmosDbContext.CosmosDbContext).FullName}.");
                 return;
             }
 

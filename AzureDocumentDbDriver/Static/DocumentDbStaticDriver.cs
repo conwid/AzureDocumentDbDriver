@@ -5,60 +5,39 @@ using System.Linq;
 using System.Reflection;
 using LINQPad.Extensibility.DataContext;
 using System.Data.Common;
-using AzureDocumentDbDriver.Common;
+using AzureCosmosDbDriver.Common;
 
-namespace AzureDocumentDbDriver.Static
+namespace AzureCosmosDbDriver.Static
 {
 
     public class Driver : StaticDataContextDriver
     {
-        public override string Name { get { return "CosmosDb Static Driver"; } }
+        public override string Name => "CosmosDb Static Driver";
 
-        public override string Author { get { return DriverHelper.AuthorName; } }
+        public override string Author => DriverHelper.AuthorName;
 
-        public override string GetConnectionDescription(IConnectionInfo cxInfo)
+        public override string GetConnectionDescription(IConnectionInfo cxInfo) => DriverHelper.GetConnectionDescription(cxInfo);
+
+        public override DbProviderFactory GetProviderFactory(IConnectionInfo cxInfo) => DriverHelper.GetProviderFactory(cxInfo);
+
+        public override IDbConnection GetIDbConnection(IConnectionInfo cxInfo) => DriverHelper.GetIDbConnection(cxInfo);
+
+        public override bool ShowConnectionDialog(IConnectionInfo cxInfo, bool isNewConnection) => new Static.ConnectionDialog(cxInfo).ShowDialog() == true;
+
+        public override List<ExplorerItem> GetSchema(IConnectionInfo cxInfo, Type customType) => SchemaBuilder.GetSchema(new Properties(cxInfo));
+
+        public override void TearDownContext(IConnectionInfo cxInfo, object context, QueryExecutionManager executionManager, object[] constructorArguments) => ((IDisposable)context).Dispose();
+
+        public override bool AreRepositoriesEquivalent(IConnectionInfo c1, IConnectionInfo c2) => DriverHelper.AreRepositoriesEquivalent(c1, c2);
+
+        public override ParameterDescriptor[] GetContextConstructorParameters(IConnectionInfo cxInfo) => DriverHelper.GetContextConstructorParameters(cxInfo);
+
+        public override object[] GetContextConstructorArguments(IConnectionInfo cxInfo) => DriverHelper.GetContextConstructorArguments(cxInfo);
+
+        public override void InitializeContext(IConnectionInfo cxInfo, object context, QueryExecutionManager executionManager)
         {
-            return DriverHelper.GetConnectionDescription(cxInfo);
-        }
-
-        public override DbProviderFactory GetProviderFactory(IConnectionInfo cxInfo)
-        {
-            return DriverHelper.GetProviderFactory(cxInfo);
-        }
-
-        public override IDbConnection GetIDbConnection(IConnectionInfo cxInfo)
-        {
-            return DriverHelper.GetIDbConnection(cxInfo);
-        }
-
-        public override bool ShowConnectionDialog(IConnectionInfo cxInfo, bool isNewConnection)
-        {
-            return new Static.ConnectionDialog(cxInfo).ShowDialog() == true;
-        }
-
-        public override List<ExplorerItem> GetSchema(IConnectionInfo cxInfo, Type customType)
-        {
-            return SchemaBuilder.GetSchema(new Properties(cxInfo));
-        }
-
-        public override void TearDownContext(IConnectionInfo cxInfo, object context, QueryExecutionManager executionManager, object[] constructorArguments)
-        {
-            ((IDisposable)context).Dispose();
-        }
-
-        public override bool AreRepositoriesEquivalent(IConnectionInfo c1, IConnectionInfo c2)
-        {
-            return DriverHelper.AreRepositoriesEquivalent(c1, c2);
-        }
-
-        public override ParameterDescriptor[] GetContextConstructorParameters(IConnectionInfo cxInfo)
-        {
-            return DriverHelper.GetContextConstructorParameters(cxInfo);
-        }
-
-        public override object[] GetContextConstructorArguments(IConnectionInfo cxInfo)
-        {
-            return DriverHelper.GetContextConstructorArguments(cxInfo);
+            var typedCtx = (CosmosDbContext.CosmosDbContext)context;
+            typedCtx.Log += query => executionManager.SqlTranslationWriter.WriteLine(query);
         }
     }
 }

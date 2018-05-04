@@ -11,7 +11,7 @@ using Microsoft.CSharp;
 using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
 
-namespace AzureDocumentDbDriver.Common
+namespace AzureCosmosDbDriver.Common
 {
     public static class SchemaBuilder
     {
@@ -60,32 +60,27 @@ namespace AzureDocumentDbDriver.Common
             return items;
         }
 
-        private static string GenerateCode(IEnumerable<ExplorerItem> collections, string nameSpace, string typeName, string database)
+        private static string GenerateCode(IEnumerable<ExplorerItem> collections, string @namepace, string typeName, string database)
         {
-            string code = $"namespace {nameSpace} {{";
+            string code = $"namespace {@namepace} {{";
             code = code + "using Microsoft.Azure.Documents.Client;" +
                           "using System;" +
                           "using System.Linq; " +
                           "using System.Dynamic;" +
-                          "using System.Collections.Generic;" +
-                          "using ContextLibrary;";
+                          "using System.Collections.Generic;" +                          
+                          "using CosmosDbContext.Collection;";
 
-            code = code + $"public abstract class {typeName} : BaseDocumentDbContext" +
+            code = code + $"public abstract class {typeName} : CosmosDbContext.CosmosDbContext" +
                            $"{{public {typeName}(string uri, string authKey, string database) : base (uri,authKey,database) {{}}";
             foreach (var collection in collections)
             {
-                code = code + $" public IEnumerable<dynamic> {collection.Tag}" +
-                                "{" +
-                                "get {" +
-                                   $" return base.CreateDocu    mentQuery<ExpandoObject>(\"{collection.Tag}\").ToList().Cast<dynamic>().ToList();" +
-                                   "}" +
-                                "}";
+                code = code + $" [CosmosDbCollection] public ICosmosDbCollection<dynamic> {collection.Tag} {{ get; set; }}";                                
 
                 foreach (var sp in collection.Children.Single(s => s.Text == "Stored procedures").Children)
                 {
                     code = code + $" public IEnumerable<dynamic> {sp.Tag}(params dynamic[] parameters)" +
                                 "{" +
-                                   $" return base.CreateDynamicStoredProcedureQuery(\"{sp.Tag}\",\"{collection.Tag}\", parameters).ToList();" +
+                                   $" return base.ExecuteDynamicStoredProcedure(\"{sp.Tag}\",\"{collection.Tag}\", parameters).ToList();" +
                                 "}";
                 }
             }
@@ -110,7 +105,8 @@ namespace AzureDocumentDbDriver.Common
                     "System.Xml.dll",
                     Path.Combine(driverFolder,"Microsoft.Azure.Documents.Client.dll"),
                     Path.Combine(driverFolder,"Newtonsoft.Json.dll"),
-                    Path.Combine(driverFolder,"ContextLibrary.dll")
+                    Path.Combine(driverFolder,"CosmosDbContext.dll"),
+                    Path.Combine(driverFolder,"CosmosDbAdoNetProvider.dll"),
                 };
                 var options = new CompilerParameters(dependencies, name.CodeBase, includeDebug);
                 results = codeProvider.CompileAssemblyFromSource(options, code);

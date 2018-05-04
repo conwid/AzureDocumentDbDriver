@@ -2,7 +2,7 @@
 using System.Xml.Linq;
 using LINQPad.Extensibility.DataContext;
 
-namespace AzureDocumentDbDriver.Common
+namespace AzureCosmosDbDriver.Common
 {
 
     public class Properties
