@@ -25,7 +25,7 @@ namespace AzureCosmosDbDriver.Common
                     Children = new List<ExplorerItem>()
                 };
 
-                List<DocumentCollection> collections = client.CreateDocumentCollectionQuery(database.SelfLink).ToList();
+                var collections = client.CreateDocumentCollectionQuery(database.SelfLink).ToList();
                 foreach (var collection in collections)
                 {
                     var collectionItem = new ExplorerItem(collection.Id, ExplorerItemKind.QueryableObject, ExplorerIcon.Table) { IsEnumerable = true, Tag = collection.Id, Children = new List<ExplorerItem>() };
@@ -78,7 +78,7 @@ namespace AzureCosmosDbDriver.Common
 
                 foreach (var sp in collection.Children.Single(s => s.Text == "Stored procedures").Children)
                 {
-                    code = code + $" public IEnumerable<dynamic> {sp.Tag}(params dynamic[] parameters)" +
+                    code = code + $" public IEnumerable<dynamic> {collection.Tag}_{sp.Tag}(params dynamic[] parameters)" +
                                 "{" +
                                    $" return base.ExecuteDynamicStoredProcedure(\"{sp.Tag}\",\"{collection.Tag}\", parameters).ToList();" +
                                 "}";
@@ -112,8 +112,9 @@ namespace AzureCosmosDbDriver.Common
                 results = codeProvider.CompileAssemblyFromSource(options, code);
             }
             if (results.Errors.Count > 0)
-                throw new Exception
-                    ("Cannot compile typed context: " + results.Errors[0].ErrorText + " (line " + results.Errors[0].Line + ")");
+            {
+                throw new Exception("Cannot compile typed context: " + results.Errors[0].ErrorText + " (line " + results.Errors[0].Line + ")");
+            }
         }
     }
 }

@@ -17,24 +17,23 @@ using CosmosDbAdoNetProvider;
 
 namespace AzureCosmosDbDriver.Dynamic
 {
-	/// <summary>
-	/// Interaction logic for ConnectionDialog.xaml
-	/// </summary>
-	public partial class ConnectionDialog : Window
-	{
-		private Properties properties;
+    /// <summary>
+    /// Interaction logic for ConnectionDialog.xaml
+    /// </summary>
+    public partial class ConnectionDialog : Window
+    {
+        private readonly Properties properties;
 
-		public ConnectionDialog(IConnectionInfo cxInfo)
-		{
-            cxInfo.DatabaseInfo.Provider = CosmosDbSqlProviderFactory.ProviderName;                   
-			DataContext = properties = new Properties (cxInfo);
-			Background = SystemColors.ControlBrush;
-			InitializeComponent ();            
-		}	
+        public ConnectionDialog(IConnectionInfo cxInfo)
+        {
+            cxInfo.DatabaseInfo.Provider = CosmosDbSqlProviderFactory.ProviderName;
+            properties = new Properties(cxInfo);
+            DataContext = properties;
+            Background = SystemColors.ControlBrush;
+            InitializeComponent();
+        }
 
-		void btnOK_Click (object sender, RoutedEventArgs e)
-		{
-			DialogResult = true;            
-		}
-	}
+        private void btnOK_Click(object sender, RoutedEventArgs e) => DialogResult = true;
+
+    }
 }

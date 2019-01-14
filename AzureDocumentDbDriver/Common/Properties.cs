@@ -7,39 +7,39 @@ namespace AzureCosmosDbDriver.Common
 
     public class Properties
     {
-        readonly IConnectionInfo _cxInfo;
-        readonly XElement _driverData;
+        private readonly IConnectionInfo cxInfo;
+        private readonly XElement driverData;
 
         public Properties(IConnectionInfo cxInfo)
         {
-            _cxInfo = cxInfo;
-            _driverData = cxInfo.DriverData;
+            this.cxInfo = cxInfo;
+            driverData = cxInfo.DriverData;
         }
 
-        public ICustomTypeInfo CustomTypeInfo => _cxInfo.CustomTypeInfo;
+        public ICustomTypeInfo CustomTypeInfo => cxInfo.CustomTypeInfo;
 
         public bool Persist
         {
-            get => _cxInfo.Persist;
-            set => _cxInfo.Persist = value;
+            get => cxInfo.Persist;
+            set => cxInfo.Persist = value;
         }
 
         public string Uri
         {
-            get => (string)_driverData.Element("Uri") ?? string.Empty;
-            set => _driverData.SetElementValue("Uri", value);
+            get => (string)driverData.Element(nameof(Uri)) ?? string.Empty;
+            set => driverData.SetElementValue(nameof(Uri), value);
         }
 
         public string AccountKey
         {
-            get => (string)_driverData.Element("AccountKey") ?? string.Empty;
-            set => _driverData.SetElementValue("AccountKey", value);
+            get => (string)driverData.Element(nameof(AccountKey)) ?? string.Empty;
+            set => driverData.SetElementValue(nameof(AccountKey), value);
         }
 
         public string Database
         {
-            get => (string)_driverData.Element("Database") ?? string.Empty;
-            set => _driverData.SetElementValue("Database", value);
+            get => (string)driverData.Element(nameof(Database)) ?? string.Empty;
+            set => driverData.SetElementValue(nameof(Database), value);
         }
     }
 

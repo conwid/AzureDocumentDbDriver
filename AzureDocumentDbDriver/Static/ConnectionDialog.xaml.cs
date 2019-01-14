@@ -34,10 +34,7 @@ namespace AzureCosmosDbDriver.Static
             InitializeComponent();
         }
 
-        void btnOK_Click(object sender, RoutedEventArgs e)
-        {
-            DialogResult = true;
-        }
+        private void btnOK_Click(object sender, RoutedEventArgs e) =>DialogResult = true;        
 
         void BrowseAssembly(object sender, RoutedEventArgs e)
         {
@@ -48,21 +45,23 @@ namespace AzureCosmosDbDriver.Static
             };
 
             if (dialog.ShowDialog() == true)
+            {
                 cxInfo.CustomTypeInfo.CustomAssemblyPath = dialog.FileName;
+            }
         }
 
-        void ChooseType(object sender, RoutedEventArgs e)
+        private void ChooseType(object sender, RoutedEventArgs e)
         {
-            string assemPath = cxInfo.CustomTypeInfo.CustomAssemblyPath;
-            if (assemPath.Length == 0)
+            string assemblyPath = cxInfo.CustomTypeInfo.CustomAssemblyPath;
+            if (assemblyPath.Length == 0)
             {
                 MessageBox.Show("First enter a path to an assembly.");
                 return;
             }
 
-            if (!File.Exists(assemPath))
+            if (!File.Exists(assemblyPath))
             {
-                MessageBox.Show("File '" + assemPath + "' does not exist.");
+                MessageBox.Show("File '" + assemblyPath + "' does not exist.");
                 return;
             }
 
@@ -82,8 +81,11 @@ namespace AzureCosmosDbDriver.Static
                 return;
             }
 
-            string result = (string)LINQPad.Extensibility.DataContext.UI.Dialogs.PickFromList("Choose Custom Type", customTypes);
-            if (result != null) cxInfo.CustomTypeInfo.CustomTypeName = result;
+            var result = (string)LINQPad.Extensibility.DataContext.UI.Dialogs.PickFromList("Choose Custom Type", customTypes);
+            if (result != null)
+            {
+                cxInfo.CustomTypeInfo.CustomTypeName = result;
+            }
         }
     }
 }

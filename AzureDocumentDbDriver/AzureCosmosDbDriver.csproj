@@ -119,7 +119,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>if $(ConfigurationName) == Debug DevDeploy.bat
-if $(ConfigurationName) == Release powershell.exe -file "ReleaseDeploy.ps1" -folder "$(TargetDir)</PostBuildEvent>
+if $(ConfigurationName) == Release powershell.exe -NonInteractive -executionPolicy Unrestricted -file "ReleaseDeploy.ps1" -folder "$(TargetDir)</PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\packages\Microsoft.Azure.DocumentDB.1.22.0\build\Microsoft.Azure.DocumentDB.targets" Condition="Exists('..\packages\Microsoft.Azure.DocumentDB.1.22.0\build\Microsoft.Azure.DocumentDB.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

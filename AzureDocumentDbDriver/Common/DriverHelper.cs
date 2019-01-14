@@ -38,8 +38,7 @@ namespace AzureCosmosDbDriver.Common
 
         public static string GetConnectionDescription(IConnectionInfo cxInfo)
         {
-            var props = new Properties(cxInfo);
-            List<ExpandoObject> o = new List<ExpandoObject>();
+            var props = new Properties(cxInfo);            
             return $"{props.Uri}/{props.Database}";
         }
 
@@ -55,7 +54,7 @@ namespace AzureCosmosDbDriver.Common
 
         internal static IDbConnection GetIDbConnection(IConnectionInfo cxInfo)
         {
-            Properties props = new Properties(cxInfo);
+            var props = new Properties(cxInfo);
             return new CosmosDbSqlConnection(props.Uri, props.AccountKey, props.Database);
         }
 
@@ -65,7 +64,7 @@ namespace AzureCosmosDbDriver.Common
             {
                 throw new NotSupportedException($"Only {CosmosDbSqlProviderFactory.ProviderName} is supported; requested {cxInfo.DatabaseInfo.Provider}");
             }
-            Properties props = new Properties(cxInfo);
+            var props = new Properties(cxInfo);
             return new CosmosDbSqlProviderFactory(props.Uri, props.AccountKey, props.Database);
         }
 
