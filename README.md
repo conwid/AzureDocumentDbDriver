@@ -8,11 +8,7 @@ Check out my blogposts on the making of the driver:
 
 ## Download the binaries
 
-If you want, you can just go ahead and download the latest binaries from my blog or directly from these links:
-
-* [Driver package](https://dotnetfalconcontent.blob.core.windows.net/linqpad-cosmosdb-driver/v2-0-0-0/AzureCosmosDbDriver.lpx)
-* [Static driver context backend class library](https://dotnetfalconcontent.blob.core.windows.net/linqpad-cosmosdb-driver/v2-0-0-0/CosmosDbContext.dll)
-
+Head over to the [releases](https://github.com/conwid/AzureDocumentDbDriver/releases) to download the binaries.
 
 ## Features
 
