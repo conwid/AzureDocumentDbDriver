@@ -21,14 +21,11 @@ namespace AzureCosmosDbDriver.Dynamic
     /// Interaction logic for ConnectionDialog.xaml
     /// </summary>
     public partial class ConnectionDialog : Window
-    {
-        private readonly Properties properties;
-
+    {        
         public ConnectionDialog(IConnectionInfo cxInfo)
         {
-            cxInfo.DatabaseInfo.Provider = CosmosDbSqlProviderFactory.ProviderName;
-            properties = new Properties(cxInfo);
-            DataContext = properties;
+            cxInfo.DatabaseInfo.Provider = CosmosDbSqlProviderFactory.ProviderName;            
+            DataContext = new Properties(cxInfo);
             Background = SystemColors.ControlBrush;
             InitializeComponent();
         }

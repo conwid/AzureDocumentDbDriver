@@ -24,27 +24,22 @@ namespace AzureCosmosDbDriver.Static
     /// </summary>
     public partial class ConnectionDialog : Window
     {
-        IConnectionInfo cxInfo;
-
+        private readonly IConnectionInfo cxInfo;
         public ConnectionDialog(IConnectionInfo cxInfo)
         {
-            this.cxInfo = cxInfo;
-            DataContext = new Properties(cxInfo);
             cxInfo.DatabaseInfo.Provider = CosmosDbSqlProviderFactory.ProviderName;
+            DataContext = new Properties(cxInfo);
+            Background = SystemColors.ControlBrush;
+            this.cxInfo = cxInfo;
             InitializeComponent();
         }
 
-        private void btnOK_Click(object sender, RoutedEventArgs e) =>DialogResult = true;        
+        private void btnOK_Click(object sender, RoutedEventArgs e) => DialogResult = true;
 
         void BrowseAssembly(object sender, RoutedEventArgs e)
         {
-            var dialog = new Microsoft.Win32.OpenFileDialog()
-            {
-                Title = "Choose custom assembly",
-                DefaultExt = ".dll",
-            };
-
-            if (dialog.ShowDialog() == true)
+            var dialog = new Microsoft.Win32.OpenFileDialog() { Title = "Choose custom assembly", DefaultExt = ".dll" };
+            if ((dialog.ShowDialog() ?? false) == true)
             {
                 cxInfo.CustomTypeInfo.CustomAssemblyPath = dialog.FileName;
             }
