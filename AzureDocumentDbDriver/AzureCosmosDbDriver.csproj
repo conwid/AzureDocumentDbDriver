@@ -64,13 +64,29 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Dynamic\ConnectionDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Static\ConnectionDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Common\DriverHelper.cs" />
     <Compile Include="Common\Properties.cs" />
     <Compile Include="Common\SchemaBuilder.cs" />
-    <Compile Include="Dynamic\ConnectionDialog.xaml.cs" />
+    <Compile Include="Dynamic\ConnectionDialog.xaml.cs">
+      <DependentUpon>Dynamic\ConnectionDialog.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Dynamic\DocumentDbDynamicDriver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Static\ConnectionDialog.xaml.cs" />
+    <Compile Include="Static\ConnectionDialog.xaml.cs">
+      <DependentUpon>Static\ConnectionDialog.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Static\DocumentDbStaticDriver.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -82,6 +98,7 @@
     </Content>
     <Content Include="header.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>
@@ -95,17 +112,7 @@
     <None Include="ReleaseDeploy.ps1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="Dynamic\ConnectionDialog.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Static\ConnectionDialog.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-  </ItemGroup>
+  </ItemGroup>  
   <ItemGroup>
     <ProjectReference Include="..\CosmosDbAdoNetProvider\CosmosDbAdoNetProvider.csproj">
       <Project>{4E685226-1E96-4E98-82EC-A70F1041C920}</Project>

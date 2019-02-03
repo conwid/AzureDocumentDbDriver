@@ -17,14 +17,10 @@ namespace AzureCosmosDbDriver.Common
     {
         public static List<ExplorerItem> GetSchema(Properties props)
         {
-            using (DocumentClient client = new DocumentClient(new Uri(props.Uri), props.AccountKey))
+            using (var client = new DocumentClient(new Uri(props.Uri), props.AccountKey))
             {
                 var database = client.CreateDatabaseQuery().AsEnumerable().Single(db => db.Id == props.Database);
-                ExplorerItem dbItem = new ExplorerItem(database.Id, ExplorerItemKind.Schema, ExplorerIcon.Schema)
-                {
-                    Children = new List<ExplorerItem>()
-                };
-
+                ExplorerItem dbItem = new ExplorerItem(database.Id, ExplorerItemKind.Schema, ExplorerIcon.Schema) { Children = new List<ExplorerItem>() };
                 var collections = client.CreateDocumentCollectionQuery(database.SelfLink).ToList();
                 foreach (var collection in collections)
                 {
@@ -46,13 +42,10 @@ namespace AzureCosmosDbDriver.Common
                     collectionItem.Children.Add(storedProceduresCategory);
                     collectionItem.Children.Add(udfsCategory);
                 }
-
-
                 return new List<ExplorerItem> { dbItem };
             }
         }
-        public static List<ExplorerItem> GetSchemaAndBuildAssembly(Properties props, AssemblyName name,
-              ref string nameSpace, ref string typeName, string driverFolder)
+        public static List<ExplorerItem> GetSchemaAndBuildAssembly(Properties props, AssemblyName name, ref string nameSpace, ref string typeName, string driverFolder)
         {
             var items = GetSchema(props);
             string code = GenerateCode(items[0].Children, nameSpace, typeName, props.Database);
@@ -75,7 +68,6 @@ namespace AzureCosmosDbDriver.Common
             foreach (var collection in collections)
             {
                 code = code + $" [CosmosDbCollection] public ICosmosDbCollection<dynamic> {collection.Tag} {{ get; set; }}";                                
-
                 foreach (var sp in collection.Children.Single(s => s.Text == "Stored procedures").Children)
                 {
                     code = code + $" public IEnumerable<dynamic> {collection.Tag}_{sp.Tag}(params dynamic[] parameters)" +
@@ -87,7 +79,6 @@ namespace AzureCosmosDbDriver.Common
             code = code + "}}";
             return code;
         }
-
 
         private static void BuildAssembly(string code, AssemblyName name, string driverFolder)
         {
