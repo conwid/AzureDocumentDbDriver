@@ -15,7 +15,7 @@ Head over to the [releases](https://github.com/conwid/AzureDocumentDbDriver/rele
 For a detailed description of the currently supported features, please refer to the project [Wiki](https://github.com/conwid/AzureDocumentDbDriver/wiki).
 
 * Static datacontext driver that you can use if you have a prebuilt context using my context library
-* Dynamic datacontext driver if you want to et started fast
+* Dynamic datacontext driver if you want to get started fast
 * Querying CosmosDb document collections using LInQ with all the LinqPad integration that you like
 * Running CosmosDb stored procedures
 * Running CosmosDb UDFs
